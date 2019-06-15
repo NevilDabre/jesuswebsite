@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -24,7 +24,10 @@ import red from '@material-ui/core/colors/red';
 
 import HomeContent from './../HomeContent/HomeContent';
 
+import YtSearchService from '../../services/YtSearch.service';
+
 require('dotenv').config({ silent: process.env.NODE_ENV === 'production' });
+
 
 const drawerWidth = 240;
 
@@ -88,20 +91,28 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
-  favoriteIcon:{
+  favoriteIcon: {
     display: 'inline-flex',
     verticalAlign: 'middle',
     color: red[500],
-    '&:hover':{
+    '&:hover': {
       color: red[800]
     }
   }
 });
 
 class MenuWithDrawer extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
   state = {
     open: false,
   };
+
+
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -111,9 +122,16 @@ class MenuWithDrawer extends React.Component {
     this.setState({ open: false });
   };
 
+  componentDidMount(prevProps, prevState, snapshot){
+
+  }
+
   render() {
     const { classes, theme } = this.props;
-    console.log('Process => ',process.env);
+
+    console.log('Process => ', process.env);
+    console.log();
+
     return (
       <div className={classes.root}>
         <CssBaseline />
